@@ -5,7 +5,7 @@
 class PageTemplater {
 
 	/**
-	 * A reference to an instance of this class.
+	 * A reference to an instance of this includes.
 	 */
 	private static $instance;
 
@@ -15,7 +15,7 @@ class PageTemplater {
 	protected $templates;
 
 	/**
-	 * Returns an instance of this class.
+	 * Returns an instance of this includes.
 	 */
 	public static function get_instance() {
 

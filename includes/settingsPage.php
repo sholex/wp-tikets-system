@@ -46,7 +46,7 @@ class settingsPage {
 	 */
 	public function create_admin_page()
 	{
-		// Set class property
+		// Set includes property
 		$this->options = get_option( TICKETS_OPTION_FIELD );
 		?>
 		<div class="wrap">
@@ -183,7 +183,7 @@ class settingsPage {
 	public function title_callback()
 	{
 		printf(
-			'<input type="text" id="title" class="regular-text ltr" name="'.TICKETS_OPTION_FIELD.'[title]" value="%s" />',
+			'<input type="text" id="title" includes="regular-text ltr" name="'.TICKETS_OPTION_FIELD.'[title]" value="%s" />',
 			isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
 		);
 	}
@@ -191,7 +191,7 @@ class settingsPage {
 	public function faq_posts_prefix()
     {
 	    printf(
-		    '<input type="text" id="faq_posts_prefix" class="regular-text ltr" name="'.TICKETS_OPTION_FIELD.'[faq_posts_prefix]" value="%s" />',
+		    '<input type="text" id="faq_posts_prefix" includes="regular-text ltr" name="'.TICKETS_OPTION_FIELD.'[faq_posts_prefix]" value="%s" />',
 		    isset( $this->options['faq_posts_prefix'] ) ? esc_attr( $this->options['faq_posts_prefix']) : ''
 	    );
     }

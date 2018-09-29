@@ -5,7 +5,7 @@ Plugin URI: https://sholex.by
 Description: Добавляет тикет систему на сайт.
 Author: Алексей Шоломицкий
 Author URI: https://vk.com/sholexxx
-Version: 1.0
+Version: 0.5
 */
 
 
@@ -24,16 +24,16 @@ define('TICKETS_OPTION_FIELD', 'faq_tickets_settings');
 
 
 
-include 'class/cf7extender.php';
-include 'class/faqPostType.php';
-include 'class/faqUsers.php';
-include 'class/MetaBoxes.php';
-include 'class/notifications.php';
-include 'class/settingsPage.php';
+include 'includes/cf7extender.php';
+include 'includes/faqPostType.php';
+include 'includes/faqUsers.php';
+include 'includes/MetaBoxes.php';
+include 'includes/notifications.php';
+include 'includes/settingsPage.php';
 
 //функция автозагруки, загружающая классы из папки classes:
 //function loadFromClasses($ClassName) {
-//	include TICKETS_CONNECTOR_ROOT .DIRECTORY_SEPARATOR.'class'.DIRECTORY_SEPARATOR.$ClassName.'.php';
+//	include TICKETS_CONNECTOR_ROOT .DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.$ClassName.'.php';
 //}
 //регистрируем обе функции автозагрузки
 //spl_autoload_register('loadFromClasses');
@@ -114,28 +114,28 @@ public function expert_box($expert, $answer){
 	$avatar = true; $social = true; $name = false;
 	if( $avatar ) :
 		?>
-        <div class="author-bio" >
-        <div class="author-avatar">
+        <div includes="author-bio" >
+        <div includes="author-avatar">
 			<?php
 			echo '<a href="'.$expert_profile_url.'">'.$avatar_img.'</a>';
 
 			if ($name = get_the_author_meta('first_name', $expert_id)){
 				$l_name = get_the_author_meta('last_name', $expert_id);
-				echo $profile_name_link = '<span class="prof_link"><a href = "'.$expert_profile_url.'">'.$name.' '.$l_name.'</a></span>';
+				echo $profile_name_link = '<span includes="prof_link"><a href = "'.$expert_profile_url.'">'.$name.' '.$l_name.'</a></span>';
 			}
 			else
-				echo $profile_name_link = '<span class="prof_link"><a href = "'.$expert_profile_url.'">'.get_the_author_meta('nickname', $expert_id).'</a></span>';
+				echo $profile_name_link = '<span includes="prof_link"><a href = "'.$expert_profile_url.'">'.get_the_author_meta('nickname', $expert_id).'</a></span>';
 			?>
         </div><!-- #author-avatar -->
 	<?php endif; ?>
-    <div class="author-description" style="float:right;width:82%;">
+    <div includes="author-description" style="float:right;width:82%;">
 		<?php if( !empty( $name ) ): ?>
             <!--	<h3><a href="<?php echo get_author_posts_url( $expert_id ); ?>"><?php echo $name ?> </a></h3> -->
 		<?php endif; ?>
 		<?php echo $answer; ?>
     </div><!-- #author-description -->
 
-    <div class="clear"></div>
+    <div includes="clear"></div>
     </div>
 	<?php
 }

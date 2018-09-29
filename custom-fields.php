@@ -15,7 +15,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'conditional_logic' => 0,
 				'wrapper' => array (
 					'width' => '',
-					'class' => '',
+					'includes' => '',
 					'id' => '',
 				),
 				'return_format' => 'array',
@@ -69,7 +69,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'conditional_logic' => 0,
 				'wrapper' => array (
 					'width' => '',
-					'class' => '',
+					'includes' => '',
 					'id' => '',
 				),
 				'default_value' => '',

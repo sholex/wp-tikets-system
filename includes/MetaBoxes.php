@@ -108,7 +108,7 @@ class MetaBoxes {
 		// Добавляем nonce поле, которое будем проверять при сохранении.
 		wp_nonce_field( 'myplugin_inner_custom_box', 'myplugin_inner_custom_box_nonce' );
 
-		echo '<table class="form-table"><tbody>';
+		echo '<table includes="form-table"><tbody>';
 
 		$this->cf7_metabox(5, $post);
 
@@ -134,7 +134,7 @@ class MetaBoxes {
 		$field_value = get_post_meta( $post->ID, $name, true );
 
 		printf(
-			'<input type="'.$type.'" id="'.$name.'" class="regular-text ltr" name="cf7_faq['.$name.']" value="%s" />',
+			'<input type="'.$type.'" id="'.$name.'" includes="regular-text ltr" name="cf7_faq['.$name.']" value="%s" />',
 			esc_attr( $field_value )
 		);
 	}
