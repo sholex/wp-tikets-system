@@ -72,7 +72,10 @@ class MetaBoxes {
 			}
 		}
 
-		update_post_meta( $post_id, 'expert_answer', $_POST['expert_answer'] );
+		if(isset($_POST['expert_answer'])){
+			update_post_meta( $post_id, 'expert_answer', $_POST['expert_answer'] );
+		}
+
 
 	}
 
@@ -157,7 +160,7 @@ class MetaBoxes {
 	}
 
 	public function cf7_metabox($cf7_form_id, $post){
-		$cf7_user_fields = wpcf7_contact_form( $cf7_form_id )->form_scan_shortcode();
+		$cf7_user_fields = wpcf7_contact_form( $cf7_form_id )->scan_form_tags();
 
 
 

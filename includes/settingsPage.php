@@ -106,7 +106,7 @@ class settingsPage {
 		);
 
 		add_settings_field(
-			'title',
+			TICKETS_TITLE_TEMPLATE_FIELD,
 			'Шаблон заголовка',
 			array( $this, 'title_callback' ),
 			TICKETS_MENU_SLUG,
@@ -114,7 +114,7 @@ class settingsPage {
 		);
 
 		add_settings_field(
-			'expert_answer',
+			TICKETS_CONTENT_TEMPLATE_FIELD,
 			'Шаблон контента',
 			array( $this, 'content_callback' ),
 			TICKETS_MENU_SLUG,
