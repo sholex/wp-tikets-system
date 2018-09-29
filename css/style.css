@@ -1,0 +1,12 @@
+#answer-box > .doctor-box{
+    width: 17%;
+    display: inline-block;
+}
+#answer-box > .doctor-box img{
+    width: 100%;
+}
+#answer-box > .author-description{
+    float:right;
+    width:82%;
+
+}
