@@ -4,8 +4,12 @@
 
 class MetaBoxes {
 
+	public $options;
 
 	public function __construct() {
+
+		$this->options = $this->options = get_option( TICKETS_OPTION_FIELD );
+
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
 		add_action( 'save_post', array( $this, 'save' ) );
 
@@ -113,7 +117,7 @@ class MetaBoxes {
 
 		echo '<table includes="form-table"><tbody>';
 
-		$this->cf7_metabox(5, $post);
+		$this->cf7_metabox($this->options['cf7_form_id'], $post);
 
 //		$cf7_user_fields = $this->cf7_user_fields;
 //		if(is_array($cf7_user_fields)){

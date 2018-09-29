@@ -59,8 +59,8 @@ if ( is_admin() ) {
 }
 
 
-include ('templates.php');
-include ('custom-fields.php');
+//include ('templates.php');
+//include ('custom-fields.php');
 
 
 
