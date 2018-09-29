@@ -137,11 +137,11 @@ class settingsPage {
 		if( isset( $input['cf7_form_id'] ) )
 			$new_input['cf7_form_id'] = absint( $input['cf7_form_id'] );
 
-		if( isset( $input['title'] ) )
-			$new_input['title'] = sanitize_text_field( $input['title'] );
+		if( isset( $input[TICKETS_TITLE_TEMPLATE_FIELD] ) )
+			$new_input[TICKETS_TITLE_TEMPLATE_FIELD] = sanitize_text_field( $input[TICKETS_TITLE_TEMPLATE_FIELD] );
 
-		if( isset( $input['expert_answer'] ) )
-			$new_input['expert_answer'] = $input['expert_answer'];
+		if( isset( $input[TICKETS_CONTENT_TEMPLATE_FIELD] ) )
+			$new_input[TICKETS_CONTENT_TEMPLATE_FIELD] = $input[TICKETS_CONTENT_TEMPLATE_FIELD];
 
 
 		return $new_input;
@@ -183,8 +183,8 @@ class settingsPage {
 	public function title_callback()
 	{
 		printf(
-			'<input type="text" id="title" includes="regular-text ltr" name="'.TICKETS_OPTION_FIELD.'[title]" value="%s" />',
-			isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
+			'<input type="text" id="title" includes="regular-text ltr" name="'.TICKETS_OPTION_FIELD.'['.TICKETS_TITLE_TEMPLATE_FIELD.']" value="%s" />',
+			isset( $this->options[TICKETS_TITLE_TEMPLATE_FIELD] ) ? esc_attr( $this->options[TICKETS_TITLE_TEMPLATE_FIELD]) : ''
 		);
 	}
 
@@ -206,8 +206,8 @@ class settingsPage {
 			'textarea_rows' => 10,
 			'tabindex' => 0,
 			'media_buttons' => 1,
-			'textarea_name' => TICKETS_OPTION_FIELD.'[expert_answer]'
+			'textarea_name' => TICKETS_OPTION_FIELD.'['.TICKETS_CONTENT_TEMPLATE_FIELD.']'
 		);
-		wp_editor($this->options['expert_answer'], 'expert_answer',  $settings);
+		wp_editor($this->options[TICKETS_CONTENT_TEMPLATE_FIELD], 'expert_answer',  $settings);
 	}
 }

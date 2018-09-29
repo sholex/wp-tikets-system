@@ -15,7 +15,7 @@ class cf7extender
     {
 	    $this->options = $this->options = get_option( TICKETS_OPTION_FIELD );
 
-        wpcf7_add_shortcode('faqcats', [$this, 'faqcats_handler']);
+	    wpcf7_add_form_tag('faqcats', [$this, 'faqcats_handler']);
 
 	    add_filter( 'wpcf7_posted_data', [$this, 'save_faq_posted_data'] );
     }
@@ -50,20 +50,24 @@ class cf7extender
 	 */
 
 	public function save_faq_posted_data( $posted_data ) {
-		$post_type = TICKETS_POST_TYPE;
+
 		$cf7_form_ID = $this->options['cf7_form_id'];
+write_log($posted_data);
+write_log($this->prepare_data(TICKETS_TITLE_TEMPLATE_FIELD, $posted_data));
+write_log($this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data));
 
 		if ($posted_data['_wpcf7'] == $cf7_form_ID){//условие срабатывает только для определенной формы
 
 			$args        = array(
-				'post_title'   => $this->prepare_data('title', $posted_data),
-				'post_content' => $this->prepare_data('content', $posted_data),
+				'post_title'   => $this->prepare_data(TICKETS_TITLE_TEMPLATE_FIELD, $posted_data),
+				'post_content' => $this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data),
 				'post_status'  => 'draft',           // Choose: publish, preview, future, draft, etc.
-				'post_type'    => $post_type,  //'post',page' or use a custom post type if you want to
+				'post_type'    => TICKETS_POST_TYPE,  //'post',page' or use a custom post type if you want to
 
 			);
 			$post_id     = wp_insert_post( $args );
 
+			write_log($post_id);
 
 
 			if($post_id){
@@ -92,7 +96,7 @@ class cf7extender
 
 	}
 
-	public function prepare_data($field, $posted_data)
+	public function prepare_data( $field, array $posted_data)
 	{
 		$content = $this->options[$field];
 

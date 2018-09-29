@@ -150,20 +150,20 @@ class notifications {
 			$author_mail = get_post_meta( $post_id, 'ap_author_email' );
 			$name =  get_post_meta( $post_id, 'ap_author_name' );
 
-			$author_mail = get_post_meta( $post_id, 'email' );
-			$name =  get_post_meta( $post_id, 'vashe-imja' );
-			//	print_r($name);
-			//	exit;
+			$author_mail = get_post_meta( $post_id, 'email' )[0];
+			$name =  get_post_meta( $post_id, 'vashe-imja' )[0];
+				write_log($name);
+
 			//if (!$name = get_the_author_meta('display_name', (int) $post_author)) $name = get_the_author_meta('nickname', (int) $user_id);//имя автора
 			$post_title =  $post->title;//заголовок вопроса
 			$post_content =  $post->post_content;//контент вопроса
 
 			//Заголовки для письма
-			$headers[] = 'From: ПОЗВОНОЧНИК Гуру <wordpress@pozvonochnik.guru>';
+			$headers[] = 'From: Lecheniedetej.ru <no-reply@lecheniedetej.ru>';
 			$headers[] = 'content-type: text/html';
 
 			//Уведомляем администратора сайта
-			$subject = 'Новый вопрос на сайте ПОЗВОНОЧНИК Гуру';
+			$subject = 'Новый вопрос на сайте';
 			$message = 'Поздравляем, новый вопрос для эксперта!'.PHP_EOL;
 			$message .= 'Заголовок вопроса <b>'.$post_title.'</b>.'.PHP_EOL;
 			$message .= 'Содержание вопроса <b>'.$post_content.'</b>.'.PHP_EOL;
@@ -176,6 +176,11 @@ class notifications {
 			$message = 'Здравствуйте, '.$name.'!'.PHP_EOL;
 			$message .= 'Ваш вопрос <b>'.$post_title.'</b> опубликован.'.PHP_EOL;
 			$message .= 'Посмотреть его можно по ссылке: <a href="'.get_permalink($post_id).'">'.get_permalink($post_id).'</a>';
+
+//			write_log($author_mail);
+//			write_log($subject);
+//			write_log($message);
+//			write_log($headers);
 			wp_mail( $author_mail, $subject, $message, $headers );
 			//exit;
 		}

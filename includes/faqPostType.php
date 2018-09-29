@@ -5,7 +5,7 @@
 
 class faqPostType
 {
-    public $taxonomy = 'faqcat';
+    public $taxonomy = TICKETS_TAXONOMY;
 	public $options;
 
     public function __construct()
@@ -24,13 +24,6 @@ class faqPostType
 
 	    add_filter('post_type_link', [$this, 'faq_permalink'], 1, 2);
     }
-
-	public function get_plugin_options()
-	{
-		$settings = new settingsPage();
-		return $settings->options;
-
-	}
 
 
     public function faq_rewrite_rules($rules) {
@@ -53,11 +46,8 @@ class faqPostType
     function register_faq_post_type() {
 
         $faq_slug = $this->faq_slug;
-        $post_type = TICKETS_POST_TYPE;
-        $taxonomy = TICKETS_TAXONOMY;
 
-
-        register_taxonomy($taxonomy, array($faq_slug), array(
+        register_taxonomy(TICKETS_TAXONOMY, array($faq_slug), array(
             'label'                 => 'Раздел вопроса', // определяется параметром $labels->name
             'labels'                => array(
                 'name'              => 'Разделы вопросов',
@@ -106,6 +96,11 @@ class faqPostType
             'exclude_from_search' => false,
             //	'capability_type'     => TICKETS_POST_TYPE,
             'capabilities' => array(
+	            'manage_categories'=> 'manage_faqcat',
+	            'edit_terms'=> 'manage_faqcat',
+	            'delete_terms'=> 'manage_faqcat',
+	            'assign_categories' => 'edit_faq',
+
                 'create_posts' => 'create_faqs',
                 'edit_post' => 'edit_faq',
                 'edit_posts' => 'edit_faqs',
@@ -122,7 +117,7 @@ class faqPostType
             'has_archive'         => $faq_slug,
             'query_var'           => true,
             'supports'            => array( 'title', 'editor','thumbnail','excerpt','custom-fields','comments', ),
-            'taxonomies'          => array( 'faqcat' ),
+            'taxonomies'          => array( TICKETS_TAXONOMY ),
         ) );
 
 	    flush_rewrite_rules();
@@ -137,7 +132,7 @@ class faqPostType
 			return $permalink;
 
 		// Получаем элементы таксы
-		$terms = get_the_terms($post, 'faqcat');
+		$terms = get_the_terms($post, TICKETS_TAXONOMY);
 		// если есть элемент заменим холдер
 		if( ! is_wp_error($terms) && !empty($terms) && is_object($terms[0]) )
 			$term_slug = array_pop($terms)->slug;
@@ -147,5 +142,6 @@ class faqPostType
 
 		return str_replace('%faqcat%', $term_slug, $permalink );
 	}
+
 
 }

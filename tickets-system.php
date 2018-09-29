@@ -10,6 +10,7 @@ Version: 0.5
 
 
 
+
 //define('TICKETS_CONNECTOR_ROOT', dirname(__FILE__));
 //define('TICKETS_URL', plugins_url('/', __FILE__));
 //define('TICKETS_BASE_NAME', plugin_basename(__FILE__));
@@ -19,7 +20,8 @@ define('TICKETS_POST_TYPE', 'faq');
 define('TICKETS_TAXONOMY', 'faqcat');
 define('TICKETS_MENU_SLUG', 'tickets-settings');
 define('TICKETS_OPTION_FIELD', 'faq_tickets_settings');
-
+define('TICKETS_CONTENT_TEMPLATE_FIELD', 'faq_content_template');
+define('TICKETS_TITLE_TEMPLATE_FIELD', 'faq_title_template');
 
 
 
@@ -67,7 +69,7 @@ include ('custom-fields.php');
 
 
 //подключаем стили
-wp_enqueue_style('stylesheet', plugins_url( 'css/style.css', __FILE__ ) , array(), '0.1' );
+//wp_enqueue_style('stylesheet', plugins_url( 'css/style.css', __FILE__ ) , array(), '0.1' );
 
 //Добавляем картинку
 add_image_size( 'doctor-thumb', 220, 220, true ); // Кадрирование изображения

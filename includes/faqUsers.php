@@ -10,12 +10,11 @@ class faqUsers
     public function __construct()
     {
 
-        add_action('init',          [$this, 'doctor_role']);
+        add_action('init',          [$this, 'add_doctor']);
         add_action('init',          [$this, 'enable_admin_bar_for_doctors'], 9);
         add_action( 'admin_init',   [$this, 'add_theme_caps']);
 
-
-
+//		$this->debug_caps();
     }
 
 
@@ -47,77 +46,89 @@ class faqUsers
 //    $admins->add_cap( 'read_private_faqs' );
 //    $admins->add_cap( 'delete_faq' );
 
-        $doctor = get_role( 'doctor' );
-
+//        $doctor = get_role( 'doctor' );
+//	    $doctor->add_cap( 'edit_faq' );
+//	    $doctor->add_cap( 'edit_faqs' );
+//	    $doctor->add_cap( 'edit_other_faqs' );
 
     }
 
+    public function add_doctor()
+    {
+	    remove_role('doctor');
+//**Создаем спец роль для врача
+	    add_role('doctor', 'Doctor',
+		    array(
+			    // Dashboard
+			    'read' => true, // Access to Dashboard and Users -> Your Profile.
+			    'update_core' => false, // Can NOT update core. I added a plugin for this.
+			    'edit_posts' => false, //Access to Posts, Add New, Comments and moderating comments.
+
+			    // Posts
+			    'edit_posts' => false, //Access to Posts, Add New, Comments and moderating comments.
+			    'create_posts' => false, // Allows user to create new posts
+			    'delete_posts' => false, // Can delete posts.
+			    'publish_posts' => false, // Can publish posts. Otherwise they stay in draft mode.
+			    'delete_published_posts' => false, // Can delete published posts.
+			    'edit_published_posts' => false, // Can edit posts.
+			    'edit_others_posts' => false, // Can edit other users posts.
+			    'delete_others_posts' => false, // Can delete other users posts.
+
+			    //FAQ
+			    'edit_faq' => true,
+			    'create_faqs' =>true,
+			    'edit_faqs' => true,
+			    'edit_other_faqs' => true,
+			    'publish_faqs' => true,
+			    'read_faq' => true,
+			    'read_private_faqs' => true,
+			    'edit_published_faqs' => true, // Can edit posts.
+
+			    //FAQCAT
+			    'manage_faqcat' => true,
+			    'assing_terms' => true,
+			    'edit_faqcat'    => true,
+				'manage_categories' => true,
+
+			    // Categories, comments and users
+			    //'edit_categories' => false, // Access to managing categories.
+			    'moderate_comments' => false, // Access to moderating comments. Edit posts also needs to be set to true.
+			    'edit_comments' => false, // Comments are blocked out for this user.
+			    'edit_users' => false, // Can not view other users.
+			    // Pages
+			    'edit_pages' => false, // Access to Pages and Add New (page).
+			    'publish_pages' => false, // Can publish pages.
+			    'edit_other_pages' => false, // Can edit other users pages.
+			    'edit_published_ pages' => false, // Can edit published pages.
+			    'delete_pages' => false, // Can delete pages.
+			    'delete_others_pages' => false, // Can delete other users pages.
+			    'delete_published_pages' => false, // Can delete published pages.
+			    // Media Library
+			    'upload_files' => false, // Access to Media Library.
+			    // Appearance
+			    'edit_themes_options' => false, // Access to Appearance panel options.
+			    'switch_themes' => false, // Can not switch themes.
+			    'delete_themes' => false, // Can NOT delete themes.
+			    'install_themes' => false, // Can not install a new theme.
+			    'update_themes' => false, // Can NOT update themes.
+			    'edit_themes' => false, // Can not edit themes - through the appearance editor.
+			    // Plugins
+			    'activate_plugins' => false, // Access to plugins screen.
+			    'edit_plugins' => false, // Can not edit plugins - through the appearance editor.
+			    'install_plugins' => false, // Access to installing a new plugin.
+			    'update_plugins' => false, // Can update plugins.
+			    'delete_plugins' => false, // Can NOT delete plugins.
+			    // Settings
+			    'manage_options' => false, // Can not access Settings section.
+			    // Tools
+			    'import' => false, // Can not access Tools section.
+
+		    )
+	    );
+    }
 
 /*
-remove_role('doctor');
-//**Создаем спец роль для врача
-add_role('doctor', 'Doctor',
-array(
-    // Dashboard
-'read' => true, // Access to Dashboard and Users -> Your Profile.
-'update_core' => false, // Can NOT update core. I added a plugin for this.
-'edit_posts' => false, //Access to Posts, Add New, Comments and moderating comments.
 
-    // Posts
-'edit_posts' => false, //Access to Posts, Add New, Comments and moderating comments.
-'create_posts' => false, // Allows user to create new posts
-'delete_posts' => false, // Can delete posts.
-'publish_posts' => false, // Can publish posts. Otherwise they stay in draft mode.
-'delete_published_posts' => false, // Can delete published posts.
-'edit_published_posts' => false, // Can edit posts.
-'edit_others_posts' => false, // Can edit other users posts.
-'delete_others_posts' => false, // Can delete other users posts.
-
-    //FAQ
-'edit_faq' => true,
-'create_faqs' =>true,
-'edit_faqs' => true,
-'edit_other_faqs' => true,
-'publish_faqs' => true,
-'read_faq' => true,
-'read_private_faqs' => true,
-'edit_published_faqs' => true, // Can edit posts.
-
-    // Categories, comments and users
-'manage_categories' => false, // Access to managing categories.
-'moderate_comments' => false, // Access to moderating comments. Edit posts also needs to be set to true.
-'edit_comments' => false, // Comments are blocked out for this user.
-'edit_users' => false, // Can not view other users.
-    // Pages
-'edit_pages' => false, // Access to Pages and Add New (page).
-'publish_pages' => false, // Can publish pages.
-'edit_other_pages' => false, // Can edit other users pages.
-'edit_published_ pages' => false, // Can edit published pages.
-'delete_pages' => false, // Can delete pages.
-'delete_others_pages' => false, // Can delete other users pages.
-'delete_published_pages' => false, // Can delete published pages.
-    // Media Library
-'upload_files' => false, // Access to Media Library.
-    // Appearance
-'edit_themes_options' => false, // Access to Appearance panel options.
-'switch_themes' => false, // Can not switch themes.
-'delete_themes' => false, // Can NOT delete themes.
-'install_themes' => false, // Can not install a new theme.
-'update_themes' => false, // Can NOT update themes.
-'edit_themes' => false, // Can not edit themes - through the appearance editor.
-    // Plugins
-'activate_plugins' => false, // Access to plugins screen.
-'edit_plugins' => false, // Can not edit plugins - through the appearance editor.
-'install_plugins' => false, // Access to installing a new plugin.
-'update_plugins' => false, // Can update plugins.
-'delete_plugins' => false, // Can NOT delete plugins.
-    // Settings
-'manage_options' => false, // Can not access Settings section.
-    // Tools
-'import' => false, // Can not access Tools section.
-
-)
-);
 */
 
     /**
@@ -181,5 +192,21 @@ array(
         $doctor->add_cap( 'delete_faq' );
 
     }
+
+
+	public function debug_caps()
+	{
+		if (is_admin()){
+			require_once(ABSPATH . 'wp-includes/pluggable.php');
+			$data = get_userdata( get_current_user_id() );
+
+			if ( is_object( $data) ) {
+				$current_user_caps = $data->allcaps;
+
+				// print it to the screen
+				echo '<pre>' . print_r( $current_user_caps, true ) . '</pre>';
+			}
+		}
+	}
 
 }
