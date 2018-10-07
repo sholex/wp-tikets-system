@@ -24,9 +24,13 @@ class notifications {
 	}
 
 
-	public function answered()
+	public function set_answer_author()
 	{
-
+		global $post;
+		wp_update_post(array(
+			'ID'    => $post->ID,
+			'post_author'   => get_current_user_id()
+		));
 	}
 
 	public function roomble_send_notification( $new_status, $old_status, $post ) {
@@ -137,6 +141,8 @@ class notifications {
 	public function new_faq_email(){
 		global $post;
 
+		$this->set_answer_author();
+
 		if ($post->post_type == TICKETS_POST_TYPE){
 
 			$post_id = $post->ID;
@@ -152,7 +158,7 @@ class notifications {
 
 			$author_mail = get_post_meta( $post_id, 'email' )[0];
 			$name =  get_post_meta( $post_id, 'vashe-imja' )[0];
-				write_log($name);
+
 
 			//if (!$name = get_the_author_meta('display_name', (int) $post_author)) $name = get_the_author_meta('nickname', (int) $user_id);//имя автора
 			$post_title =  $post->title;//заголовок вопроса
@@ -163,12 +169,12 @@ class notifications {
 			$headers[] = 'content-type: text/html';
 
 			//Уведомляем администратора сайта
-			$subject = 'Новый вопрос на сайте';
-			$message = 'Поздравляем, новый вопрос для эксперта!'.PHP_EOL;
-			$message .= 'Заголовок вопроса <b>'.$post_title.'</b>.'.PHP_EOL;
-			$message .= 'Содержание вопроса <b>'.$post_content.'</b>.'.PHP_EOL;
-			$message .= 'Посмотреть его можно по ссылке: <a href="'.get_permalink($post_id).'">'.get_permalink($post_id).'</a>';
-			wp_mail( $admin_email, $subject, $message, $headers );
+//			$subject = 'Новый вопрос на сайте';
+//			$message = 'Поздравляем, новый вопрос для эксперта!'.PHP_EOL;
+//			$message .= 'Заголовок вопроса <b>'.$post_title.'</b>.'.PHP_EOL;
+//			$message .= 'Содержание вопроса <b>'.$post_content.'</b>.'.PHP_EOL;
+//			$message .= 'Посмотреть его можно по ссылке: <a href="'.get_permalink($post_id).'">'.get_permalink($post_id).'</a>';
+//			wp_mail( $admin_email, $subject, $message, $headers );
 
 
 			//Уведомляем пользователя о публикации

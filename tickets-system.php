@@ -45,15 +45,15 @@ new faqUsers();
 new cf7extender();
 new notifications();
 
-if( is_admin() ){
-	new settingsPage();
-}
+
 
 function call_MetaBoxes() {
 	new MetaBoxes();
 }
 
 if ( is_admin() ) {
+	new settingsPage();
+
 	add_action( 'load-post.php', 'call_MetaBoxes' );
 	add_action( 'load-post-new.php', 'call_MetaBoxes' );
 }
@@ -91,7 +91,7 @@ if (!function_exists('write_log')) {
 }
 
 
-function add_cf7_form( $content ) {
+function add_doctor_answer_in_content( $content ) {
 	global $post;
 
 	if ( is_single() && TICKETS_POST_TYPE == get_post_type() ) {
@@ -101,16 +101,16 @@ function add_cf7_form( $content ) {
 		return $content;
 	}
 }
-add_filter( 'the_content', 'add_cf7_form' );
+add_filter( 'the_content', 'add_doctor_answer_in_content' );
 
 
 
 //echo '<pre>';
 //print_r($GLOBALS['wp_post_types']);
 //echo '</pre>';
-/*
-public function expert_box($expert, $answer){
-	//global $userpro;
+
+function expert_box($expert, $answer){
+	global $userpro;
 	//$expert_id = $expert["ID"];
 
 //	$expert_profile_url = $userpro->permalink($expert["ID"]);
@@ -145,5 +145,5 @@ public function expert_box($expert, $answer){
     </div>
 	<?php
 }
-*/
+
 

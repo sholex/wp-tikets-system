@@ -52,9 +52,9 @@ class cf7extender
 	public function save_faq_posted_data( $posted_data ) {
 
 		$cf7_form_ID = $this->options['cf7_form_id'];
-write_log($posted_data);
-write_log($this->prepare_data(TICKETS_TITLE_TEMPLATE_FIELD, $posted_data));
-write_log($this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data));
+//write_log($posted_data);
+//write_log($this->prepare_data(TICKETS_TITLE_TEMPLATE_FIELD, $posted_data));
+//write_log($this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data));
 
 		if ($posted_data['_wpcf7'] == $cf7_form_ID){//условие срабатывает только для определенной формы
 
@@ -63,18 +63,18 @@ write_log($this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data));
 				'post_content' => $this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data),
 				'post_status'  => 'draft',           // Choose: publish, preview, future, draft, etc.
 				'post_type'    => TICKETS_POST_TYPE,  //'post',page' or use a custom post type if you want to
-
+			//	'post_author'  => get_current_user_id()
 			);
 			$post_id     = wp_insert_post( $args );
 
-			write_log($post_id);
+			write_log($args);
 
 
 			if($post_id){
 
 				$cf_form_fields = wpcf7_contact_form( $cf7_form_ID )->collect_mail_tags();
-				write_log($cf_form_fields);
-				write_log($posted_data);
+//				write_log($cf_form_fields);
+//				write_log($posted_data);
 
 
 				foreach ( $cf_form_fields as $field ) {

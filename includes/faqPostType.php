@@ -101,45 +101,7 @@ class faqPostType
             'show_in_menu'        => true,
             'exclude_from_search' => false,
             'capability_type'     => TICKETS_POST_TYPE,
-            /*'capabilities' => array(
-	            // Meta capabilities
 
-	            'edit_post'		 => 'edit_'.TICKETS_POST_TYPE,
-				'read_post'		 => 'read_'.TICKETS_POST_TYPE,
-				'delete_post'		 => 'delete_'.TICKETS_POST_TYPE,
-
-				// Primitive capabilities used outside of map_meta_cap():
-
-				'edit_posts'		 => 'edit_'.TICKETS_POST_TYPE.'s',
-				'edit_others_posts'	 => 'edit_others_'.TICKETS_POST_TYPE.'s',
-				'publish_posts'		 => 'publish_'.TICKETS_POST_TYPE.'s',
-				'read_private_posts'	 => 'read_private_'.TICKETS_POST_TYPE.'s',
-
-				// Primitive capabilities used within map_meta_cap():
-
-				'read'                   => 'read',
-				'delete_posts'           => 'delete_'.TICKETS_POST_TYPE.'s',
-				'delete_private_posts'   => 'delete_private_'.TICKETS_POST_TYPE.'s',
-				'delete_published_posts' => 'delete_published_'.TICKETS_POST_TYPE.'s',
-				'delete_others_posts'    => 'delete_others_'.TICKETS_POST_TYPE.'s',
-				'edit_private_posts'     => 'edit_private_'.TICKETS_POST_TYPE.'s',
-				'edit_published_posts'   => 'edit_published_'.TICKETS_POST_TYPE.'s',
-				'create_posts'           => 'edit_'.TICKETS_POST_TYPE.'s',
-//	            'manage_categories'=> 'manage_faqcat',
-//	            'edit_terms'=> 'manage_faqcat',
-//	            'delete_terms'=> 'manage_faqcat',
-//	            'assign_categories' => 'edit_faq',
-//
-//                'create_posts' => 'create_faqs',
-//                'edit_post' => 'edit_faq',
-//                'edit_posts' => 'edit_faqs',
-//                'edit_others_posts' => 'edit_other_faqs',
-//                'publish_posts' => 'publish_faqs',
-//                'read_post' => 'read_faq',
-//                'read_private_posts' => 'read_private_faqs',
-//                'edit_published_posts' => 'edit_published_faqs',
-//                'delete_post' => 'delete_faq'
-            ),*/
             'map_meta_cap'        => true,
             'hierarchical'        => false,
             'rewrite'             => array( 'slug'=>$faq_slug.'/%faqcat%', 'with_front'=>false, 'pages'=>false, 'feeds'=>false, 'feed'=>false ),
@@ -147,6 +109,7 @@ class faqPostType
             'query_var'           => true,
             'supports'            => array(
             	'title',
+	            'author',
 	            'editor',
 	            'thumbnail',
 	            'excerpt',
