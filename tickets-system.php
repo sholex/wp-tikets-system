@@ -32,6 +32,7 @@ include 'includes/faqUsers.php';
 include 'includes/MetaBoxes.php';
 include 'includes/notifications.php';
 include 'includes/settingsPage.php';
+include 'includes/ContentFilters.php';
 
 //функция автозагруки, загружающая классы из папки classes:
 //function loadFromClasses($ClassName) {
@@ -44,6 +45,7 @@ new faqPostType();
 new faqUsers();
 new cf7extender();
 new notifications();
+new ContentFilters();
 
 
 
@@ -91,17 +93,7 @@ if (!function_exists('write_log')) {
 }
 
 
-function add_doctor_answer_in_content( $content ) {
-	global $post;
 
-	if ( is_single() && TICKETS_POST_TYPE == get_post_type() ) {
-		$expert_answer = get_post_meta($post->ID, 'expert_answer');
-		return $content.$expert_answer[0];
-	} else {
-		return $content;
-	}
-}
-add_filter( 'the_content', 'add_doctor_answer_in_content' );
 
 
 

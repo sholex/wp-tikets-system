@@ -63,11 +63,8 @@ class cf7extender
 				'post_content' => $this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data),
 				'post_status'  => 'draft',           // Choose: publish, preview, future, draft, etc.
 				'post_type'    => TICKETS_POST_TYPE,  //'post',page' or use a custom post type if you want to
-			//	'post_author'  => get_current_user_id()
 			);
 			$post_id     = wp_insert_post( $args );
-
-			write_log($args);
 
 
 			if($post_id){
