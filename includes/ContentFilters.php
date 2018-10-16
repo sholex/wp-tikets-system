@@ -21,8 +21,8 @@ class ContentFilters {
 			return $content;
 
 		} else {
-			$data = 'Оцените статью: '. do_shortcode('[ratings]').PHP_EOL;
-			//$data .= do_shortcode('[contact-form-7 id="'.$cf7_form_ID.'"').PHP_EOL;
+			$data = PHP_EOL.'Оцените статью: '. do_shortcode('[ratings]').PHP_EOL;
+			$data .= do_shortcode('[contact-form-7 id="'.$cf7_form_ID.'"]').PHP_EOL;
 			return $content.$data;
 		}
 	}
@@ -33,7 +33,8 @@ class ContentFilters {
 
 		if ( is_single() && TICKETS_POST_TYPE == get_post_type() ) {
 			$expert_answer = get_post_meta($post->ID, 'expert_answer');
-			return $content.$expert_answer[0];
+			$answer = isset($expert_answer[0])? $expert_answer[0] : '';
+			return $content.$answer;
 		} else {
 			return $content;
 		}
