@@ -17,11 +17,15 @@ class notifications {
 		add_action('draft_to_publish', [$this, 'new_faq_email']);
 		add_action('pending_to_publish', [$this, 'new_faq_email']);
 
+
+
+
 		//add_action( 'transition_post_status', 'roomble_send_notification', 30, 3 );
 
 
 		//add_action('save_post_faq', [$this, 'send_message_2']);
 	}
+
 
 
 	public function set_answer_author()

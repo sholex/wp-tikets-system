@@ -10,6 +10,8 @@ class ContentFilters {
 
 		add_filter( 'the_content', array($this, 'add_cf7_form'),9 );
 		add_filter( 'the_content', array($this, 'add_doctor_answer_in_content') );
+
+
 	}
 
 

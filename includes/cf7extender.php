@@ -17,10 +17,25 @@ class cf7extender
 
 	    wpcf7_add_form_tag('faqcats', [$this, 'faqcats_handler']);
 
-	    add_filter( 'wpcf7_posted_data', [$this, 'save_faq_posted_data'] );
+//	    add_filter( 'wpcf7_posted_data', [$this, 'save_faq_posted_data']);
+
+	    add_action( 'wpcf7_mail_sent', array($this, 'handle_form_submission') );
+
     }
 
 
+	/**
+	 * create faq post on form submit
+	 */
+	public function handle_form_submission( $contact_form ) {
+
+		$submission = WPCF7_Submission::get_instance();
+
+		if ( $submission ) {
+			$posted_data = $submission->get_posted_data();
+			$this->save_faq_posted_data($posted_data);
+		}
+	}
 
     /*
     * Добавляем шорткод [faqcats] для вывода рубрик
@@ -52,9 +67,6 @@ class cf7extender
 	public function save_faq_posted_data( $posted_data ) {
 
 		$cf7_form_ID = $this->options['cf7_form_id'];
-//write_log($posted_data);
-//write_log($this->prepare_data(TICKETS_TITLE_TEMPLATE_FIELD, $posted_data));
-//write_log($this->prepare_data(TICKETS_CONTENT_TEMPLATE_FIELD, $posted_data));
 
 		if ($posted_data['_wpcf7'] == $cf7_form_ID){//условие срабатывает только для определенной формы
 
@@ -70,18 +82,15 @@ class cf7extender
 			if($post_id){
 
 				$cf_form_fields = wpcf7_contact_form( $cf7_form_ID )->collect_mail_tags();
-//				write_log($cf_form_fields);
-//				write_log($posted_data);
-
 
 				foreach ( $cf_form_fields as $field ) {
 					if(isset($posted_data[$field])){
+						$value = is_array($posted_data[$field]) ? implode(',', $posted_data[$field]) : $posted_data[$field];
+						update_post_meta($post_id, $field, $value);
+					}
 
-                  }
-					update_post_meta($post_id, $field, $posted_data[$field]);
 				}
-//
-//
+
 //				if(isset($posted_data['faqcats'])){
 //					wp_set_object_terms($post_id, array( $posted_data['faqcats']), 'faqcat');
 //				}
@@ -98,6 +107,7 @@ class cf7extender
 		$content = $this->options[$field];
 
 		foreach ($posted_data as $field => $value){
+			$value = is_array($value)? implode(',', $value) : $value;
 			$content = str_replace('['.$field.']', $value, $content);
 		}
 		return $content;
