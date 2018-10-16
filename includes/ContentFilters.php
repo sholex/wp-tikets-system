@@ -27,7 +27,7 @@ class ContentFilters {
 		}
 	}
 
-
+	/**/
 	public function add_doctor_answer_in_content( $content ) {
 		global $post;
 
