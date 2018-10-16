@@ -100,7 +100,7 @@ if (!function_exists('write_log')) {
 //echo '<pre>';
 //print_r($GLOBALS['wp_post_types']);
 //echo '</pre>';
-
+/*
 function expert_box($expert, $answer){
 	global $userpro;
 	//$expert_id = $expert["ID"];
@@ -137,5 +137,5 @@ function expert_box($expert, $answer){
     </div>
 	<?php
 }
-
+*/
 
